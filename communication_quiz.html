@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Styles Self-Assessment</title>
+    <!-- Embedded CSS for styling the questionnaire -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for longer content */
+            min-height: 100vh; /* Ensure it takes full viewport height */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            margin: 20px 0; /* Add vertical margin */
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .rating-legend {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+            padding: 10px;
+            background-color: #eaf1f1;
+            border-radius: 5px;
+            border-left: 5px solid #28a745;
+        }
+
+        .rating-legend span {
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        .question-section {
+            border-top: 1px dashed #ccc;
+            padding-top: 25px;
+            margin-top: 35px;
+        }
+
+        .question-block {
+            background-color: #f9f9f9;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-block p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            flex-grow: 1; /* Allows labels to grow and fill space */
+            justify-content: center; /* Center content within label */
+        }
+
+        .options label:hover {
+            background-color: #d1e7dd;
+            border-color: #28a745;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #28a745; /* Custom color for radio button */
+        }
+
+        /* Style for checked radio button text */
+        .options input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .results-area {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #e6f7ff;
+            border: 1px solid #b3e0ff;
+            border-radius: 10px;
+            display: none; /* Hidden by default, shown by JS */
+        }
+
+        .results-area h2 {
+            color: #0056b3;
+            margin-top: 0;
+            border-bottom: 1px solid #a8d5f7;
+            padding-bottom: 10px;
+        }
+
+        #scoreSummary p {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        #scoreSummary strong {
+            color: #007bff;
+        }
+
+        #dominantStyles {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #styleDescription {
+            background-color: #f0f8ff;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 25px;
+            color: #333;
+        }
+
+        #styleDescription p {
+            margin-bottom: 10px;
+        }
+
+        #styleDescription strong {
+            color: #4CAF50;
+            font-size: 1.1em;
+        }
+
+        #resetBtn {
+            background-color: #6c757d;
+            margin-top: 25px;
+        }
+
+        #resetBtn:hover {
+            background-color: #5a6268;
+        }
+
+        #aiAdviceBtn {
+            background-color: #6f42c1; /* Purple color for AI button */
+            margin-top: 20px;
+        }
+
+        #aiAdviceBtn:hover {
+            background-color: #563d7c;
+        }
+
+        #aiAdviceOutput {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f0ff; /* Lighter purple background */
+            border: 1px solid #d6baff;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+        }
+
+        #aiAdviceOutput h3 {
+            color: #6f42c1;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #d6baff;
+            padding-bottom: 10px;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 15px;
+            font-style: italic;
+            color: #777;
+            display: none; /* Hidden by default */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .options label {
+                flex-basis: calc(50% - 10px); /* Two columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .options label {
+                flex-basis: 100%; /* Single column on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Communication Styles Self-Assessment</h1>
+        <p class="intro">This questionnaire will help you better understand your preferred communication style. There are no right or wrong answers, so please answer as honestly as possible, choosing the option that best reflects your typical behavior.</p>
+        <p class="intro">For each statement, select the option that most accurately describes you.</p>
+
+        <div class="rating-legend">
+            <strong>Rating Scale:</strong>
+            <span>1 = Rarely</span>
+            <span>2 = Sometimes</span>
+            <span>3 = Often</span>
+            <span>4 = Very Often</span>
+            <span>5 = Almost Always</span>
+        </div>
+
+        <form id="communicationQuiz">
+            <section class="question-section">
+                <h2>Section 1: How You Express Yourself</h2>
+                <div class="question-block" id="q1">
+                    <p>1. When I have an idea, I tend to share it directly and immediately.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q1" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q1" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q1" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q1" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q2">
+                    <p>2. I prefer to get straight to the point in conversations, avoiding unnecessary details.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q2" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q2" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q2" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q2" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q3">
+                    <p>3. I use strong, assertive language when expressing my opinions.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q3" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q3" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q3" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q3" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q4">
+                    <p>4. I am comfortable leading discussions and directing conversations.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q4" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q4" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q4" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q4" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q5">
+                    <p>5. I focus on facts and data when trying to persuade others.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q5" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q5" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q5" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q5" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q6">
+                    <p>6. I tend to speak with a clear, firm tone of voice.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q6" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q6" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q6" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q6" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q7">
+                    <p>7. I value efficiency and brevity in my communication.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q7" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q7" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q7" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q7" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q8">
+                    <p>8. I am comfortable with silence in conversations, letting others fill the gap if needed.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q8" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q8" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q8" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q8" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="question-section">
+                <h2>Section 2: How You Interact with Others</h2>
+                <div class="question-block" id="q9">
+                    <p>9. I enjoy collaborating with others and brainstorming ideas as a group.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q9" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q9" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q9" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q9" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q10">
+                    <p>10. I try to understand the feelings and perspectives of others during conversations.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q10" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q10" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q10" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q10" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q11">
+                    <p>11. I am expressive with my emotions and body language when communicating.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q11" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q11" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q11" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q11" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q12">
+                    <p>12. I use humor and storytelling to engage others in conversation.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q12" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q12" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q12" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q12" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q13">
+                    <p>13. I tend to build rapport and personal connections before discussing tasks or goals.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q13" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q13" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q13" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q13" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q14">
+                    <p>14. I am good at mediating conflicts and finding common ground.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q14" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q14" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q14" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q14" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q15">
+                    <p>15. I provide encouragement and praise to others readily.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q15" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q15" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q15" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q15" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q16">
+                    <p>16. I am comfortable with open-ended discussions where the topic may shift.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q16" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q16" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q16" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q16" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="question-section">
+                <h2>Section 3: How You Handle Information and Decisions</h2>
+                <div class="question-block" id="q17">
+                    <p>17. I like to gather all available information and analyze it thoroughly before making a decision.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q17" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q17" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q17" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q17" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q18">
+                    <p>18. I prefer to have clear guidelines and a logical process for tasks.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q18" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q18" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q18" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q18" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q19">
+                    <p>19. I ask many questions to ensure I understand all details.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q19" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q19" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q19" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q19" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q20">
+                    <p>20. I tend to be cautious and methodical in my approach to new ideas.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q20" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q20" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q20" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q20" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q21">
+                    <p>21. I focus on accuracy and precision in my communication.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q21" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q21" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q21" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q21" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q21" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q22">
+                    <p>22. I prefer written communication (emails, reports) for complex information.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q22" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q22" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q22" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q22" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q22" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q23">
+                    <p>23. I take my time to respond, thinking carefully before speaking.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q23" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q23" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q23" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q23" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q23" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q24">
+                    <p>24. I appreciate detailed instructions and clear expectations.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q24" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q24" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q24" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q24" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q24" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="question-section">
+                <h2>Section 4: How You Respond to Conflict and Pressure</h2>
+                <div class="question-block" id="q25">
+                    <p>25. When faced with conflict, I tend to address it directly and seek a resolution.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q25" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q25" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q25" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q25" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q25" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q26">
+                    <p>26. I am comfortable expressing disagreement, even if it might lead to tension.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q26" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q26" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q26" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q26" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q26" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q27">
+                    <p>27. Under pressure, I focus on the task at hand and push for results.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q27" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q27" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q27" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q27" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q27" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q28">
+                    <p>28. I tend to remain calm and logical during stressful conversations.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q28" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q28" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q28" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q28" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q28" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q29">
+                    <p>29. I prioritize maintaining harmony and avoiding confrontation.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q29" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q29" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q29" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q29" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q29" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q30">
+                    <p>30. I may withdraw or become quiet when a conversation becomes too intense.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q30" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q30" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q30" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q30" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q30" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q31">
+                    <p>31. I try to understand everyone's perspective before offering a solution.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q31" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q31" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q31" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q31" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q31" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+                <div class="question-block" id="q32">
+                    <p>32. I am sensitive to the emotional atmosphere in a room.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q32" value="1" required> <span>1</span></label>
+                        <label><input type="radio" name="q32" value="2"> <span>2</span></label>
+                        <label><input type="radio" name="q32" value="3"> <span>3</span></label>
+                        <label><input type="radio" name="q32" value="4"> <span>4</span></label>
+                        <label><input type="radio" name="q32" value="5"> <span>5</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <button type="submit" id="submitBtn">Get My Communication Style</button>
+        </form>
+
+        <div id="results" class="results-area">
+            <h2>Your Communication Style Results</h2>
+            <div id="scoreSummary"></div>
+            <div id="dominantStyles"></div>
+            <button type="button" id="aiAdviceBtn" style="display: none;">Get Personalized Advice ✨</button>
+            <div id="aiAdviceLoading" class="loading-indicator">Generating personalized advice...</div>
+            <div id="aiAdviceOutput"></div>
+            <div id="styleDescription"></div>
+            <button id="resetBtn" style="display: none;">Retake Quiz</button>
+        </div>
+    </div>
+
+    <!-- Embedded JavaScript for quiz logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('communicationQuiz');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultsArea = document.getElementById('results');
+            const scoreSummary = document.getElementById('scoreSummary');
+            const dominantStylesDiv = document.getElementById('dominantStyles');
+            const styleDescriptionDiv = document.getElementById('styleDescription');
+            const resetBtn = document.getElementById('resetBtn');
+            const aiAdviceBtn = document.getElementById('aiAdviceBtn');
+            const aiAdviceLoading = document.getElementById('aiAdviceLoading');
+            const aiAdviceOutput = document.getElementById('aiAdviceOutput');
+
+            // Define the mapping of questions to styles for scoring
+            // Each question's value (1-5) will be added to the corresponding style's score.
+            // Note: Questions are grouped based on the original questionnaire's intended style alignment.
+            const questionMappings = {
+                directive: [1, 2, 3, 4, 5, 6, 7, 8, 25, 26, 27],
+                expressive: [9, 11, 12, 13, 15, 16], // Adjusted based on previous feedback for better fit
+                analytical: [17, 18, 19, 20, 21, 22, 23, 24, 28], // Adjusted based on previous feedback for better fit
+                supportive: [10, 14, 29, 30, 31, 32] // Adjusted based on previous feedback for better fit
+            };
+
+            // Descriptions for each communication style
+            const styleDescriptions = {
+                directive: {
+                    name: "Directive/Driver",
+                    characteristics: "Direct, results-oriented, decisive, takes charge, values efficiency, can appear impatient.",
+                    communicatesBy: "Getting straight to the point, focusing on facts, using assertive language, preferring brief interactions."
+                },
+                expressive: {
+                    name: "Expressive/Socializer",
+                    characteristics: "Enthusiastic, charismatic, engaging, imaginative, spontaneous, values social interaction and recognition.",
+                    communicatesBy: "Using engaging language, storytelling, humor, strong body language, focusing on relationships, often talks broadly."
+                },
+                analytical: {
+                    name: "Analytical/Thinker",
+                    characteristics: "Logical, precise, detail-oriented, cautious, asks many questions, values accuracy and data.",
+                    communicatesBy: "Focusing on facts and figures, preferring written communication, taking time to respond, asking probing questions, avoiding emotional displays."
+                },
+                supportive: {
+                    name: "Supportive/Amiable",
+                    characteristics: "Cooperative, patient, team-oriented, empathetic, good listener, values harmony and relationships.",
+                    communicatesBy: "Being a good listener, building rapport, offering support, using a warm and friendly tone, avoiding conflict, seeking consensus."
+                }
+            };
+
+            let userDominantStyles = []; // Variable to store dominant styles globally for AI advice
+
+            // Event listener for form submission
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission to handle it with JavaScript
+
+                // Basic validation: Check if all questions are answered
+                const totalQuestions = 32;
+                let answeredQuestions = 0;
+                const questionBlocks = form.querySelectorAll('.question-block');
+
+                // Reset any previous validation highlighting
+                questionBlocks.forEach(block => {
+                    block.style.border = 'none';
+                });
+
+                // Check each question group for a selected answer
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const questionName = `q${i}`;
+                    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                    if (selectedOption) {
+                        answeredQuestions++;
+                    } else {
+                        // Highlight unanswered question for user feedback
+                        document.getElementById(`q${i}`).style.border = '2px solid #dc3545';
+                    }
+                }
+
+                if (answeredQuestions < totalQuestions) {
+                    // Find the first unanswered question and scroll to it
+                    const firstUnanswered = document.querySelector('.question-block[style*="border: 2px solid rgb(220, 53, 69)"]');
+                    if (firstUnanswered) {
+                        firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    // Use a custom message box instead of alert()
+                    displayMessageBox('Please answer all questions before submitting!');
+                    return; // Stop the function if not all questions are answered
+                }
+
+                // Initialize scores for each style
+                let scores = {
+                    directive: 0,
+                    expressive: 0,
+                    analytical: 0,
+                    supportive: 0
+                };
+
+                // Calculate scores by iterating through the question mappings
+                for (const style in questionMappings) {
+                    questionMappings[style].forEach(qNum => {
+                        const inputName = `q${qNum}`;
+                        const selectedValue = document.querySelector(`input[name="${inputName}"]:checked`);
+                        if (selectedValue) {
+                            scores[style] += parseInt(selectedValue.value); // Add the selected rating to the style's score
+                        }
+                    });
+                }
+
+                // Determine the dominant style(s) by finding the maximum score
+                const maxScore = Math.max(...Object.values(scores));
+                userDominantStyles = Object.keys(scores).filter(style => scores[style] === maxScore); // Store dominant styles
+
+                // Display the calculated scores in the summary area
+                scoreSummary.innerHTML = `
+                    <p><strong>Directive/Driver:</strong> ${scores.directive} points</p>
+                    <p><strong>Expressive/Socializer:</strong> ${scores.expressive} points</p>
+                    <p><strong>Analytical/Thinker:</strong> ${scores.analytical} points</p>
+                    <p><strong>Supportive/Amiable:</strong> ${scores.supportive} points</p>
+                `;
+
+                // Display the names of the dominant style(s)
+                dominantStylesDiv.innerHTML = `Your dominant style(s): ${userDominantStyles.map(style => styleDescriptions[style].name).join(', ')}`;
+
+                // Display detailed descriptions for each dominant style
+                styleDescriptionDiv.innerHTML = `<h3>Interpretation:</h3>`;
+                userDominantStyles.forEach(styleKey => {
+                    const description = styleDescriptions[styleKey];
+                    styleDescriptionDiv.innerHTML += `
+                        <h4>${description.name}</h4>
+                        <p><strong>Characteristics:</strong> ${description.characteristics}</p>
+                        <p><strong>Communicates by:</strong> ${description.communicatesBy}</p>
+                    `;
+                });
+
+                // Hide the quiz form and submit button, show the results section and reset button
+                resultsArea.style.display = 'block';
+                form.style.display = 'none';
+                submitBtn.style.display = 'none';
+                resetBtn.style.display = 'block';
+                aiAdviceBtn.style.display = 'block'; // Show the AI advice button
+
+                // Scroll smoothly to the results section for better user experience
+                resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Event listener for the "Get Personalized Advice" button
+            aiAdviceBtn.addEventListener('click', async () => {
+                aiAdviceOutput.style.display = 'none'; // Hide previous advice
+                aiAdviceLoading.style.display = 'block'; // Show loading indicator
+                aiAdviceBtn.disabled = true; // Disable button while loading
+
+                const dominantStyleNames = userDominantStyles.map(style => styleDescriptions[style].name).join(' and ');
+                const prompt = `Based on the dominant communication style(s): ${dominantStyleNames}. Provide personalized advice on how to leverage the strengths of this style and suggest strategies for improving potential weaknesses. Also, include tips on how to effectively communicate with individuals who might have different communication styles (Directive, Expressive, Analytical, Supportive). Keep the advice concise and actionable, around 2-3 paragraphs.`;
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will automatically provide the API key at runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        aiAdviceOutput.innerHTML = `<h3>Personalized Advice from Gemini:</h3><p>${text.replace(/\n/g, '<br>')}</p>`;
+                        aiAdviceOutput.style.display = 'block';
+                    } else {
+                        aiAdviceOutput.innerHTML = `<h3>Personalized Advice from Gemini:</h3><p>Sorry, I couldn't generate advice at this moment. Please try again.</p>`;
+                        aiAdviceOutput.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Error fetching AI advice:', error);
+                    aiAdviceOutput.innerHTML = `<h3>Personalized Advice from Gemini:</h3><p>An error occurred while fetching advice. Please check your connection or try again later.</p>`;
+                    aiAdviceOutput.style.display = 'block';
+                } finally {
+                    aiAdviceLoading.style.display = 'none'; // Hide loading indicator
+                    aiAdviceBtn.disabled = false; // Re-enable button
+                    aiAdviceOutput.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scroll to advice
+                }
+            });
+
+            // Event listener for the reset button
+            resetBtn.addEventListener('click', () => {
+                form.reset(); // Clear all selected radio buttons in the form
+                resultsArea.style.display = 'none'; // Hide the results section
+                form.style.display = 'block'; // Show the quiz form
+                submitBtn.style.display = 'block'; // Show the submit button
+                resetBtn.style.display = 'none'; // Hide the reset button
+                aiAdviceBtn.style.display = 'none'; // Hide AI advice button
+                aiAdviceOutput.style.display = 'none'; // Hide AI advice output
+                aiAdviceOutput.innerHTML = ''; // Clear AI advice content
+                // Clear previous results content
+                scoreSummary.innerHTML = '';
+                dominantStylesDiv.innerHTML = '';
+                styleDescriptionDiv.innerHTML = '';
+                // Scroll to the top of the page
+                window.scrollTo(0, 0);
+            });
+
+            // Custom message box function (replaces alert())
+            function displayMessageBox(message) {
+                // Create overlay and message box elements
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+
+                const messageBox = document.createElement('div');
+                messageBox.style.cssText = `
+                    background-color: #fff;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    text-align: center;
+                    max-width: 400px;
+                    width: 90%;
+                    font-size: 1.1em;
+                    color: #333;
+                    position: relative;
+                `;
+
+                const messageText = document.createElement('p');
+                messageText.textContent = message;
+                messageText.style.marginBottom = '20px';
+
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'OK';
+                closeButton.style.cssText = `
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 1em;
+                    transition: background-color 0.2s;
+                `;
+                closeButton.onmouseover = () => closeButton.style.backgroundColor = '#0056b3';
+                closeButton.onmouseout = () => closeButton.style.backgroundColor = '#007bff';
+
+                // Append elements
+                messageBox.appendChild(messageText);
+                messageBox.appendChild(closeButton);
+                overlay.appendChild(messageBox);
+                document.body.appendChild(overlay);
+
+                // Close message box on button click or overlay click
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(overlay);
+                });
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        document.body.removeChild(overlay);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
